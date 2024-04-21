@@ -12,7 +12,10 @@ cityInput.addEventListener("input", () => {
             .then(response => response.json())
             .then(data => {
                 if (data.length > 0) {
-                    const suggestions = data.map(city => `<li><a href="#">${city.name}, ${city.country}</a></li>`).join("");
+                    const suggestions = data.map(city => {
+                        const countryFullName = country_names[city.country] || "País Desconocido";
+                        return `<li><a href="#">${city.name}, ${countryFullName}</a></li>`;
+                    }).join("");
                     suggestionContainer.innerHTML = suggestions;
                     suggestionContainer.style.display = "block";
                 } else {
@@ -30,6 +33,7 @@ cityInput.addEventListener("input", () => {
         suggestionContainer.style.display = "none";
     }
 });
+
 
 //! Realizar búsqueda cuando se hace clic en una sugerencia
 suggestionContainer.addEventListener("click", (e) => {
