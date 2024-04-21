@@ -13,6 +13,7 @@ Esta aplicación web "¡Che, Qué Clima!" permite a los usuarios buscar el clima
 - **HTML/CSS/JavaScript:** La aplicación está desarrollada utilizando las tecnologías estándar del lado del cliente para la web.
 - **OpenWeatherMap API:** Se utiliza la API de OpenWeatherMap para obtener datos meteorológicos en tiempo real.
 - **Bootstrap (CDN):** Se ha utilizado Bootstrap para el diseño y los estilos responsivos.
+- **Iconos:** Todos los iconos utilizados fueron descargados de [Weather Icons by Bas Milius](https://github.com/basmilius/weather-icons). [Web: Meteocons.com](https://bas.dev/work/meteocons)
 
 ## Instrucciones de Uso
 
