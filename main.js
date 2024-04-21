@@ -111,6 +111,7 @@ function fetchData() {
                 if (data.cod === 200) {
                     displayWeatherData(data);
                 } else {
+                    hideSpinner()
                     weatherData.innerHTML = `<div class="error-city">
                     <p><i class="bi bi-exclamation-circle"></i> No se encontraron datos para esa ciudad</p>
                     <img id="imagen-clima-estado" src="./img/error.gif">
@@ -119,6 +120,7 @@ function fetchData() {
                 }
             })
             .catch(error => {
+                hideSpinner()
                 console.error("Error al obtener datos del clima:", error);
                 weatherData.innerHTML = `<div class="error-city">
                 <p>Ocurrió un error al obtener los datos del clima</p>
