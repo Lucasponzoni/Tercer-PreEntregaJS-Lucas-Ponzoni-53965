@@ -1,0 +1,272 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Signika Negative", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+body{
+    background-color: antiquewhite;
+}
+
+#search{
+    font-size: 1rem;
+}
+
+.card{
+    padding: 1rem;
+    margin-top: .5rem;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    max-width: 500px;
+    background-color: grey;
+    height: auto;
+}
+.animation{
+    width: 200px;
+}
+.search-box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.search-box input{
+    width: 400px;
+    padding: .5rem;
+    border-radius: 25px 0 0 25px;
+    padding: .5rem;
+    padding-left: 1rem;
+    border-radius: 15px 0 0 15px;
+    border: none;
+}
+.search-box button{
+    padding: .5rem;
+    border-radius: 25px 0 0 25px;
+    width: 40px;
+    padding: .5rem;
+    border-radius: 0 25px 25px 0;
+    border: none;
+    cursor: pointer;
+}
+
+.search-box input:focus{
+    outline: none;
+    box-shadow: inset 0 0 5px orange; /* Borde interno de color azul al enfocar */
+    outline: none;
+}
+
+  
+.search-box button:hover{
+    background-color: red;
+    color: white;
+}
+
+.city-Name{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.city-Name img{
+    width: 3rem;
+}
+
+.city-Name h1{
+    font-size: 3rem;
+    font-weight: 800;
+    color: white;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.temperature{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.temperature h3{
+    font-size: 2rem;
+    color: white;
+    font-size: 1rem;
+    text-align: start;
+    margin: 0;
+}
+
+.temperature h2{
+    color: white;
+    font-size: 4rem;
+    margin: 0;
+    text-align: end;
+    font-weight: 600;
+}
+
+.weather-icons{
+    width: 85px;
+}
+
+.weather-details{
+    width: 300px;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    text-align: center;
+    justify-content: center;
+    gap: 80px;
+}
+
+.weather-details p{
+    margin: 0;
+}
+
+.weather-details p.detail-tittle{
+    font-weight: 600;
+}
+.humidity, .feel-like, .sunrise{
+    display: flex;
+    align-items: center;
+    text-align: right;
+}
+.wind, .visibility, .sunset{
+    display: flex;
+    align-items: center;
+    text-align: left;
+}
+
+.min-max{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    gap: 1rem;
+}
+
+.min-max h3{
+    font-size: 1rem;
+    text-align: center;
+    margin: 0;
+    margin-top: .3rem;
+}
+
+.sunrise-sunset{
+    background-color: black;
+    width: 100%;
+    border-radius: 20px;
+    padding: .8rem;
+    margin-bottom: 1rem;
+}
+
+.weather-description{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(240, 248, 255, 0.26);
+    border-radius: 20px;
+    width: fit-content;
+}
+
+.weather-description img{
+    width: 32px;
+}
+
+.weather-description h3{
+    font-size: 1rem;
+}
+
+
+.descripcion-clima{
+    margin-bottom: 0;
+    display: flex;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+/*! SPINNER */
+.loader {
+    color: #fff;
+    font-family: Consolas, Menlo, Monaco, monospace;
+    font-weight: bold;
+    font-size: 2rem;
+    opacity: 0.8;
+    display: none;
+  }
+  .loader:before {
+    content: "{Cargando";
+    display: inline-block;
+    animation: pulse 0.4s alternate infinite ease-in-out;
+  }
+  .loader:after {
+    content: " Clima☀️}";
+    display: inline-block;
+    animation: pulse 0.4s 0.3s alternate infinite ease-in-out;
+  }
+
+  @keyframes pulse {
+    to {
+      transform: scale(0.8);
+      opacity: 0.5;
+    }
+  }
+
+  /*!SUGERENCIAS */
+  .suggestions {
+    width: calc(100% - 2px);
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-top: none;
+    background-color: #fff;
+    z-index: 1000;
+    display: none;
+    border-radius: 10px;
+    cursor: pointer;
+    padding: .5rem;
+}
+
+.suggestions a {
+    display: block;
+    padding: 5px 10px;
+    color: #333;
+    text-decoration: none;
+}
+
+.suggestions li{
+    list-style-type: none;
+}
+
+.suggestions a:hover {
+    background-color: #ff0000;  
+    color: white;
+    border-radius: 10px;
+}
+
+#imagen-clima-estado{
+    width: 200px;
+}
+
+.clima{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+      
+.error-city{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.error-city p{
+    color: white;
+    font-size: 1.2rem;
+}
