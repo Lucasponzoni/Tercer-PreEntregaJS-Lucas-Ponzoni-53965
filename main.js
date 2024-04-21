@@ -66,6 +66,10 @@ function quitarFooterRelative() {
     footer.classList.remove('relative');
 }
 
+function cambiarFooterRelative() {
+    const footer = document.querySelector('.foot');
+    footer.classList.add('relative');
+}
 
 function showSpinner() {
     spinner.style.display = "block";
@@ -132,6 +136,7 @@ function fetchData() {
                 setTimeout(hideSpinner, 2000);
             });
     } else {
+        quitarFooterRelative()
         skyanimation.classList.remove("clean-sky-day", "clean-sky-night", "rain-sky-night", "rain-sky-day");
         weatherData.innerHTML = `<div class="error-city">
         <p><i class="bi bi-question-circle"></i> Por favor ingrese el nombre de una ciudad</p>
@@ -139,11 +144,6 @@ function fetchData() {
         </div>
         `;
     }
-}
-
-function cambiarFooterRelative() {
-    const footer = document.querySelector('.foot');
-    footer.classList.add('relative');
 }
 
 function displayWeatherData(data) {
@@ -259,7 +259,6 @@ function displayWeatherData(data) {
         `;
     }, 2000);
 }
-
 
 function getCurrentCityTime(timezone) {
     const now = new Date();
