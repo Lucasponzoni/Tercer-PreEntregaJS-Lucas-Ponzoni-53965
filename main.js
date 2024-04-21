@@ -81,7 +81,8 @@ function fetchData() {
 
     if (cityName !== "") {
         const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric&lang=sp`;
-
+        
+        suggestionContainer.style.display = "none";
         clearWeatherData();
         showSpinner();
         clearimput();
