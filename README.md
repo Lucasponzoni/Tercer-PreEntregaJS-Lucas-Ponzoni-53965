@@ -1,4 +1,4 @@
-# ¡Che, Qué Clima! <img src="./img/worldwide-location.gif" alt="Che, Qué Clima" style="width: 30px; height: auto;">
+# ¡Che, Qué Clima! <img src="./img/globe.gif" alt="Che, Qué Clima" style="width: 30px; height: auto;">
 
 Esta aplicación web "¡Che, Qué Clima!" permite a los usuarios buscar el clima actual y detalles meteorológicos de una ciudad específica. Utiliza la API de OpenWeatherMap para obtener datos en tiempo real y ofrece una interfaz interactiva para mostrar la información de manera clara y visualmente atractiva.
 
