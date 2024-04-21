@@ -1,0 +1,55 @@
+/*!CLIELO CLARO DIA*/
+.clean-sky-day {
+    background: linear-gradient(223deg, #5f88f9, #00b3ff, #00d5ff, #45bdd4, #0082ff, #005db7, #8bd5f7, #0055ff, #0086e8);
+    background-size: 1800% 1800%;
+
+    animation: AnimationName 25s ease infinite;
+}
+
+@keyframes AnimationName {
+    0%{background-position:96% 0%}
+    50%{background-position:5% 100%}
+    100%{background-position:96% 0%}
+}
+
+/*!CLIELO CLARO NOCHE*/
+.clean-sky-night {
+    background: linear-gradient(223deg, #2e0068, #0e0066, #5d00af, #4600e1, #5f00ff, #311058, #1d0097, #28007a);
+    background-size: 1600% 1600%;
+
+    animation: AnimationName 25s ease infinite;
+}
+
+@keyframes AnimationName {
+    0%{background-position:96% 0%}
+    50%{background-position:5% 100%}
+    100%{background-position:96% 0%}
+}
+
+/*!CLIELO LLUVIOSO NOCHE*/
+.rain-sky-night {
+    background: linear-gradient(223deg, #2f2f2f, #4f4f4f, #7a7a7a, #424242, #003b65, #414141, #1d0097, #0b2859, #4f5306);
+    background-size: 1800% 1800%;
+
+    animation: AnimationName 25s ease infinite;
+}
+
+@keyframes AnimationName {
+    0%{background-position:96% 0%}
+    50%{background-position:5% 100%}
+    100%{background-position:96% 0%}
+}
+
+/*!CLIELO LLUVIOSO DIA*/
+.rain-sky-day {
+    background: linear-gradient(223deg, #634700, #a37400, #44470a, #717171, #84790a, #6c4a00, #6c6c6c, #888888);
+    background-size: 1600% 1600%;
+
+    animation: AnimationName 25s ease infinite;
+}
+
+@keyframes AnimationName {
+    0%{background-position:96% 0%}
+    50%{background-position:5% 100%}
+    100%{background-position:96% 0%}
+}

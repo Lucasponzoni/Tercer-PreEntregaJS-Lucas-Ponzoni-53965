@@ -4,6 +4,13 @@ const cityInput = document.getElementById("cityInput");
 const weatherData = document.getElementById("weatherData");
 const spinner = document.querySelector(".loader");
 const suggestionContainer = document.getElementById("suggestions");
+const skyanimation = document.querySelector(".card");
+
+const modoOscuroButton = document.getElementById('modoOscuroButton');
+
+modoOscuroButton.addEventListener('click', function() {
+    alert('En construcción para pre-entrega 4');
+});
 
 cityInput.addEventListener("input", () => {
     const input = cityInput.value.trim();
@@ -34,7 +41,6 @@ cityInput.addEventListener("input", () => {
     }
 });
 
-
 //! Realizar búsqueda cuando se hace clic en una sugerencia
 suggestionContainer.addEventListener("click", (e) => {
     if (e.target.tagName === "A") {
@@ -55,18 +61,25 @@ document.addEventListener("click", (e) => {
     }
 });
 
+function quitarFooterRelative() {
+    const footer = document.querySelector('.foot');
+    footer.classList.remove('relative');
+}
+
+
 function showSpinner() {
     spinner.style.display = "block";
-    setTimeout(() => {
-        spinner.style.display = "none";
-    }, 4000);
+}
+
+function hideSpinner() {
+    spinner.style.display = "none";
 }
 
 function clearWeatherData() {
     weatherData.innerHTML = "";
 }
 
-function clearimput() {
+function clearInput() {
     cityInput.value = "";
 }
 
@@ -86,9 +99,11 @@ function fetchData() {
     if (cityName !== "") {
         const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric&lang=sp`;
 
+        skyanimation.classList.remove("clean-sky-day", "clean-sky-night", "rain-sky-night", "rain-sky-day");
+        quitarFooterRelative()
         clearWeatherData();
         showSpinner();
-        clearimput();
+        clearInput();
 
         fetch(apiUrl)
             .then(response => response.json())
@@ -112,7 +127,7 @@ function fetchData() {
                 `;
             })
             .finally(() => {
-                spinner.style.display = "none"; //!Ocultar el spinner al finalizar
+                setTimeout(hideSpinner, 2000);
             });
     } else {
         weatherData.innerHTML = `<div class="error-city">
@@ -121,6 +136,11 @@ function fetchData() {
         </div>
         `;
     }
+}
+
+function cambiarFooterRelative() {
+    const footer = document.querySelector('.foot');
+    footer.classList.add('relative');
 }
 
 function displayWeatherData(data) {
@@ -144,81 +164,99 @@ function displayWeatherData(data) {
     const { cityTime, dayNight } = getCurrentCityTime(data.timezone);
 
     suggestionContainer.style.display = "none";
-    weatherData.innerHTML = `
-        <div class="city-Name">
-            <h1 class="city">${cityName}</h1>
-            <img src="./icons/fill/animation-ready/compass.svg">
-        </div>
-        <div class="country-Name container">
-            <h4 class="dia-noche">Ahora en ${cityName}, ${countryFullName} es de ${dayNight} y son las ${cityTime}hs</h4>
-        </div>
-        <div class="clima">
-        <img id="imagen-clima-estado" src="./img/Imagen estado del Clima/${icon}.svg">
-        </div>
+    // Agregar retraso de 4 segundos antes de ejecutar
+    setTimeout(() => {
 
-        <div class="weather-description container">
-            <img src="https://openweathermap.org/img/wn/${icon}@2x.png" class="clima">
-            <h3 class="descripcion-clima">${weatherDescription}</h3>
-        </div>
+        skyanimation.classList.remove("clean-sky-day", "clean-sky-night", "rain-sky-night", "rain-sky-day");
 
-        <div class="min-max">
-            <h3>Máxima ${maxTemp}°C</h3>
-            <h3>Mínima ${minTemp}°C</h3>
-        </div>
-        <div class="temperature">
-            <h2 class="tempt">${temperature}</h2>
-            <h3 class="c">°C</h3>
-        </div>
-        <div class="weather-details container">
-            <div class="humidity col">
-                <div class="text">
-                    <p class="Humedad detail-tittle">${humidity}%</p>
-                    <p>Humedad</p>
-                </div>
-                <img class="weather-icons" src="./icons/fill/animation-ready/raindrops.svg">
+        if (["01d", "02d", "03d"].includes(icon)) {
+            skyanimation.classList.add("clean-sky-day");
+        } else if (["01n", "02n", "03n"].includes(icon)) {
+            skyanimation.classList.add("clean-sky-night");
+        } else if (["04d", "09d", "10d", "11d", "13d", "50d"].includes(icon)) {
+            skyanimation.classList.add("rain-sky-night");
+        } else if (["04n", "09n", "10n", "11n", "13n", "50n"].includes(icon)) {
+            skyanimation.classList.add("rain-sky-day");
+        }
+
+        cambiarFooterRelative(); 
+        weatherData.innerHTML = `
+            <div class="city-Name">
+                <h1 class="city">${cityName}</h1>
+                <img src="./icons/fill/animation-ready/compass.svg">
             </div>
-            <div class="wind col">
-                <img class="weather-icons" src="./icons/fill/animation-ready/dust-wind.svg">
-                <div class="text">
-                    <p class="Viento detail-tittle">${windSpeed} Km/h</p>
-                    <p>Viento</p>
-                </div>
+            <div class="country-Name container">
+                <h4 class="dia-noche">Ahora en ${cityName}, ${countryFullName} es de ${dayNight} y son las ${cityTime}hs</h4>
             </div>
-        </div>
-        <div class="weather-details container">
-            <div class="feel-like col">
-                <div class="text">
-                    <p class="Humedad detail-tittle">${feelsLike}°C</p>
-                    <p>Termica</p>
-                </div>
-                <img class="weather-icons" src="./icons/fill/animation-ready/thermometer-celsius.svg">
+            <div class="clima">
+            <img id="imagen-clima-estado" src="./img/Imagen estado del Clima/${icon}.svg">
             </div>
-            <div class="visibility col">
-                <img class="weather-icons" src="./icons/fill/animation-ready/mist.svg">
-                <div class="text">
-                    <p class="Visibilidad detail-tittle">${visibility}m</p>
-                    <p>Visibilidad</p>
-                </div>
+
+            <div class="weather-description container">
+                <img src="https://openweathermap.org/img/wn/${icon}@2x.png" class="clima">
+                <h3 class="descripcion-clima">${weatherDescription}</h3>
             </div>
-        </div>
-        <div class="weather-details sunrise-sunset container">
-            <div class="sunrise col">
-                <div class="text">
-                    <p class="Humedad detail-tittle">${sunrise}</p>
-                    <p>Amanecer</p>
-                </div>
-                <img class="weather-icons" src="./icons/fill/animation-ready/sunrise.svg">
+
+            <div class="min-max">
+                <h3>Máxima ${maxTemp}°C</h3>
+                <h3>Mínima ${minTemp}°C</h3>
             </div>
-            <div class="sunset col">
-                <img class="weather-icons" src="./icons/fill/animation-ready/moonrise.svg">
-                <div class="text">
-                    <p class="Visibilidad detail-tittle">${sunset}</p>
-                    <p>Atardecer</p>
+            <div class="temperature">
+                <h2 class="tempt">${temperature}</h2>
+                <h3 class="c">°C</h3>
+            </div>
+            <div class="weather-details container">
+                <div class="humidity col">
+                    <div class="text">
+                        <p class="Humedad detail-tittle">${humidity}%</p>
+                        <p>Humedad</p>
+                    </div>
+                    <img class="weather-icons" src="./icons/fill/animation-ready/raindrops.svg">
+                </div>
+                <div class="wind col">
+                    <img class="weather-icons" src="./icons/fill/animation-ready/dust-wind.svg">
+                    <div class="text">
+                        <p class="Viento detail-tittle">${windSpeed} Km/h</p>
+                        <p>Viento</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    `;
+            <div class="weather-details container">
+                <div class="feel-like col">
+                    <div class="text">
+                        <p class="Humedad detail-tittle">${feelsLike}°C</p>
+                        <p>Termica</p>
+                    </div>
+                    <img class="weather-icons" src="./icons/fill/animation-ready/thermometer-celsius.svg">
+                </div>
+                <div class="visibility col">
+                    <img class="weather-icons" src="./icons/fill/animation-ready/mist.svg">
+                    <div class="text">
+                        <p class="Visibilidad detail-tittle">${visibility}m</p>
+                        <p>Visibilidad</p>
+                    </div>
+                </div>
+            </div>
+            <div class="weather-details sunrise-sunset container">
+                <div class="sunrise col">
+                    <div class="text">
+                        <p class="Humedad detail-tittle">${sunrise}</p>
+                        <p>Amanecer</p>
+                    </div>
+                    <img class="weather-icons" src="./icons/fill/animation-ready/sunrise.svg">
+                </div>
+                <div class="sunset col">
+                    <img class="weather-icons" src="./icons/fill/animation-ready/moonrise.svg">
+                    <div class="text">
+                        <p class="Visibilidad detail-tittle">${sunset}</p>
+                        <p>Atardecer</p>
+                    </div>
+                </div>
+            </div>
+        `;
+    }, 2000);
 }
+
 
 function getCurrentCityTime(timezone) {
     const now = new Date();
