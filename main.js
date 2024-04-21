@@ -97,7 +97,7 @@ function fetchData() {
                     displayWeatherData(data);
                 } else {
                     weatherData.innerHTML = `<div class="error-city">
-                    <p>No se encontraron datos para esa ciudad</p>
+                    <p><i class="bi bi-exclamation-circle"></i> No se encontraron datos para esa ciudad</p>
                     <img id="imagen-clima-estado" src="./img/error.gif">
                     </div>
                     `;
@@ -116,7 +116,7 @@ function fetchData() {
             });
     } else {
         weatherData.innerHTML = `<div class="error-city">
-        <p>Por favor ingrese el nombre de una ciudad</p>
+        <p><i class="bi bi-question-circle"></i> Por favor ingrese el nombre de una ciudad</p>
         <img id="imagen-clima-estado" src="./img/error.gif">
         </div>
         `;
