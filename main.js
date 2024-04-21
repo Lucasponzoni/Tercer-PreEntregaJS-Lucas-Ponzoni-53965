@@ -81,7 +81,7 @@ function fetchData() {
 
     if (cityName !== "") {
         const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric&lang=sp`;
-        
+
         clearWeatherData();
         showSpinner();
         clearimput();
@@ -105,7 +105,7 @@ function fetchData() {
                 <p>Ocurrió un error al obtener los datos del clima</p>
                 <img id="imagen-clima-estado" src="./img/error.gif">
                 </div>
-                `;;
+                `;
             })
             .finally(() => {
                 spinner.style.display = "none"; //!Ocultar el spinner al finalizar
@@ -133,12 +133,20 @@ function displayWeatherData(data) {
     const visibility = data.visibility;
     const sunrise = new Date(data.sys.sunrise * 1000).toLocaleTimeString("es-ES", { hour: '2-digit', minute: '2-digit' });
     const sunset = new Date(data.sys.sunset * 1000).toLocaleTimeString("es-ES", { hour: '2-digit', minute: '2-digit' });
-    
+    const country = data.sys.country;
+    const countryFullName = country_names[country] || "País Desconocido";
+
+    // Obtener hora actual en la ciudad buscada
+    const { cityTime, dayNight } = getCurrentCityTime(data.timezone);
+
     suggestionContainer.style.display = "none";
     weatherData.innerHTML = `
         <div class="city-Name">
             <h1 class="city">${cityName}</h1>
             <img src="./icons/fill/animation-ready/compass.svg">
+        </div>
+        <div class="country-Name container">
+            <h4 class="dia-noche">Ahora en ${cityName}, ${countryFullName} es de ${dayNight} y son las ${cityTime}hs</h4>
         </div>
         <div class="clima">
         <img id="imagen-clima-estado" src="./img/Imagen estado del Clima/${icon}.svg">
@@ -206,4 +214,21 @@ function displayWeatherData(data) {
             </div>
         </div>
     `;
+}
+
+function getCurrentCityTime(timezone) {
+    const now = new Date();
+    const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+    const cityTime = new Date(utc + (1000 * timezone)).toLocaleTimeString("es-ES", { hour: '2-digit', minute: '2-digit' });
+    const hour = parseInt(cityTime.split(':')[0]);
+
+    // Determinar si es de día o de noche
+    let dayNight = '';
+    if (hour >= 6 && hour < 18) {
+        dayNight = 'día ☀️';
+    } else {
+        dayNight = 'noche 🌙';
+    }
+
+    return { cityTime, dayNight };
 }
