@@ -7,7 +7,7 @@ const suggestionContainer = document.getElementById("suggestions");
 
 cityInput.addEventListener("input", () => {
     const input = cityInput.value.trim();
-    if (input.length >= 4) {
+    if (input.length >= 3) {
         fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${input}&limit=5&appid=${apiKey}`)
             .then(response => response.json())
             .then(data => {
@@ -82,7 +82,6 @@ function fetchData() {
     if (cityName !== "") {
         const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric&lang=sp`;
         
-        suggestionContainer.style.display = "none";
         clearWeatherData();
         showSpinner();
         clearimput();
@@ -134,7 +133,8 @@ function displayWeatherData(data) {
     const visibility = data.visibility;
     const sunrise = new Date(data.sys.sunrise * 1000).toLocaleTimeString("es-ES", { hour: '2-digit', minute: '2-digit' });
     const sunset = new Date(data.sys.sunset * 1000).toLocaleTimeString("es-ES", { hour: '2-digit', minute: '2-digit' });
-
+    
+    suggestionContainer.style.display = "none";
     weatherData.innerHTML = `
         <div class="city-Name">
             <h1 class="city">${cityName}</h1>
