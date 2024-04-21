@@ -28,17 +28,18 @@ body{
     align-items: center;
     justify-content: center;
     border: none;
-    max-width: 500px;
+    max-width: 600px;
     background-color: grey;
     border: solid 2px #333;
     height: auto;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 650px) {
     .card {
         width: 100vw;
         border-radius: 0;
         margin: 0;
+        border: none;
     }
 }
 
