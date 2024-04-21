@@ -42,9 +42,8 @@ Esta aplicación web "¡Che, Qué Clima!" permite a los usuarios buscar el clima
 
 Este proyecto forma parte de la Segunda Pre-entrega del curso de JavaScript, Comisión #53965.
 
-[Profe] Matias Coletta
-
-[Tutor] Milton Salazar
+- **[Profe]** Matias Coletta
+- **[Tutor]** Milton Salazar
 
 ## Autor
 
