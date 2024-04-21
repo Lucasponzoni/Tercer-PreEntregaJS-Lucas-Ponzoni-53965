@@ -101,13 +101,21 @@ function fetchData() {
             })
             .catch(error => {
                 console.error("Error al obtener datos del clima:", error);
-                weatherData.innerHTML = "<p>Ocurrió un error al obtener los datos del clima</p>";
+                weatherData.innerHTML = `<div class="error-city">
+                <p>Ocurrió un error al obtener los datos del clima</p>
+                <img id="imagen-clima-estado" src="./img/error.gif">
+                </div>
+                `;;
             })
             .finally(() => {
                 spinner.style.display = "none"; //!Ocultar el spinner al finalizar
             });
     } else {
-        weatherData.innerHTML = "<p>Por favor ingrese el nombre de una ciudad</p>";
+        weatherData.innerHTML = `<div class="error-city">
+        <p>Por favor ingrese el nombre de una ciudad</p>
+        <img id="imagen-clima-estado" src="./img/error.gif">
+        </div>
+        `;
     }
 }
 
