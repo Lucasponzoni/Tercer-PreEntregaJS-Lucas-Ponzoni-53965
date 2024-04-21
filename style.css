@@ -39,7 +39,7 @@ body{
     height: auto;
 }
 
-@media (max-width: 650px) {
+@media (max-width: 600px) {
     .card {
         width: 100vw;
         border-radius: 0;
@@ -154,19 +154,20 @@ body{
 }
 
 .weather-details{
-    width: 300px;
+    max-width: 600px;
     color: white;
     display: flex;
     align-items: center;
     padding: 0 20px;
     text-align: center;
-    justify-content: center;
+    justify-content: space-between;
     gap: 80px;
 }
 
 @media (max-width: 600px) {
     .weather-details {
-        width: 85vw;
+        width: 95vw;
+        gap: 20px;
     }
 }
 @media (max-width: 300px) {
