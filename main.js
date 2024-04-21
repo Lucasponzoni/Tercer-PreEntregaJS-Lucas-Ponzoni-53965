@@ -130,6 +130,7 @@ function fetchData() {
                 setTimeout(hideSpinner, 2000);
             });
     } else {
+        skyanimation.classList.remove("clean-sky-day", "clean-sky-night", "rain-sky-night", "rain-sky-day");
         weatherData.innerHTML = `<div class="error-city">
         <p><i class="bi bi-question-circle"></i> Por favor ingrese el nombre de una ciudad</p>
         <img id="imagen-clima-estado" src="./img/error.gif">
