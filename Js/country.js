@@ -1,3 +1,4 @@
+//!LISTADO DE PAISES PARA SUGERENCIAS
 const country_names = {
     "AF": "Afganistán",
     "AX": "Islas Åland",

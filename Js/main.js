@@ -1,3 +1,5 @@
+
+//TODO: DOM - ELEMENTOS DEL HTML
 const apiKey = "cf7ae197cd3b9bb784f6b11cc2a08738";
 const searchButton = document.getElementById("searchButton");
 const cityInput = document.getElementById("cityInput");
@@ -6,12 +8,13 @@ const spinner = document.querySelector(".loader");
 const suggestionContainer = document.getElementById("suggestions");
 const skyanimation = document.querySelector(".card");
 
+//!BOTON MODO OSCURO
 const modoOscuroButton = document.getElementById('modoOscuroButton');
-
 modoOscuroButton.addEventListener('click', function() {
     alert('En construcción para pre-entrega 4');
 });
 
+//!BOTON SEARCH
 cityInput.addEventListener("input", () => {
     const input = cityInput.value.trim();
     if (input.length >= 3) {
@@ -41,7 +44,7 @@ cityInput.addEventListener("input", () => {
     }
 });
 
-//! Realizar búsqueda cuando se hace clic en una sugerencia
+//!REALIZAR BUSQUEDA AL DAR CLICK EN LA SUCURGENCIA
 suggestionContainer.addEventListener("click", (e) => {
     if (e.target.tagName === "A") {
         e.preventDefault();
@@ -53,7 +56,7 @@ suggestionContainer.addEventListener("click", (e) => {
     }
 });
 
-//! Ocultar las sugerencias cuando se hace clic en otro lugar de la página
+//!OCULTAR SUGERENCIA AL DAR CLICK FUERA DEL CONTENEDOR
 document.addEventListener("click", (e) => {
     if (!e.target.matches("#cityInput")) {
         suggestionContainer.innerHTML = "";
@@ -61,54 +64,65 @@ document.addEventListener("click", (e) => {
     }
 });
 
+//!FUNCION QUITAR ETIQUETA RELATIVE AL FOOTER
 function quitarFooterRelative() {
     const footer = document.querySelector('.foot');
     footer.classList.remove('relative');
 }
 
+//!FUNCION AGREGR ETIQUETA RELATIVE AL FOOTER
 function cambiarFooterRelative() {
     const footer = document.querySelector('.foot');
     footer.classList.add('relative');
 }
 
+//!FUNCION MOSTRAR SPINNER
 function showSpinner() {
     spinner.style.display = "block";
 }
 
+//!FUNCION OCULTAR SPINNER
 function hideSpinner() {
     spinner.style.display = "none";
 }
 
+//!FUNCION ELIMINAR CONTENIDO DEL CONTENEDOR WEATHER
 function clearWeatherData() {
     weatherData.innerHTML = "";
 }
 
+//!FUNCION LIMPIAR IMPUT
 function clearInput() {
     cityInput.value = "";
 }
 
+//!LLAMAR A LA API AL DAR CLICK
 searchButton.addEventListener("click", () => {
     fetchData();
 });
 
+//!LLAMAR A LA API AL DAR ENTER
 cityInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
         fetchData();
     }
 });
 
+//!FUNCION PRINCIPAR LLAMADO A API OPEN WEATHER
 function fetchData() {
     const cityName = cityInput.value.trim();
 
     if (cityName !== "") {
         const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric&lang=sp`;
 
+        //?ELIMINA DATOS DEL CONTENEDOS
         skyanimation.classList.remove("clean-sky-day", "clean-sky-night", "rain-sky-night", "rain-sky-day");
         quitarFooterRelative()
         clearWeatherData();
         showSpinner();
         clearInput();
 
+        //?PETICION A API DE OPEN WEATHER
         fetch(apiUrl)
             .then(response => response.json())
             .then(data => {
@@ -146,6 +160,7 @@ function fetchData() {
     }
 }
 
+//!FUNCION MOSTRAR DATOS OBTENIDOS
 function displayWeatherData(data) {
     const weatherMain = data.weather[0].main;
     const icon = data.weather[0].icon;
@@ -161,17 +176,21 @@ function displayWeatherData(data) {
     const sunrise = new Date(data.sys.sunrise * 1000).toLocaleTimeString("es-ES", { hour: '2-digit', minute: '2-digit' });
     const sunset = new Date(data.sys.sunset * 1000).toLocaleTimeString("es-ES", { hour: '2-digit', minute: '2-digit' });
     const country = data.sys.country;
+    //**CONVIERTE CODIGO DE PAIS A NOMBRE COMPLETO (Ej AR a ARGENTINA)
     const countryFullName = country_names[country] || "País Desconocido";
 
-    // Obtener hora actual en la ciudad buscada
+    //**OBTENER TIME ZONE
     const { cityTime, dayNight } = getCurrentCityTime(data.timezone);
 
     suggestionContainer.style.display = "none";
-    // Agregar retraso de 4 segundos antes de ejecutar
+    
+    //**RETRASA EL MOSTRAR DATOS 2 SEGUNDOS PARA FIRZAR EL SPINNER
     setTimeout(() => {
 
+    //**REMUEVE CLASES PARA ANIMACION DE CONTENEDOR WEATHER
         skyanimation.classList.remove("clean-sky-day", "clean-sky-night", "rain-sky-night", "rain-sky-day");
 
+    //**AGREGA CLASES PARA ANIMACION DE CONTENEDOR WEATHER DEPENDIENDO DEL ICONO QUE RETORNA OPEN WEATHER
         if (["01d", "02d", "03d"].includes(icon)) {
             skyanimation.classList.add("clean-sky-day");
         } else if (["01n", "02n", "03n"].includes(icon)) {
@@ -183,6 +202,8 @@ function displayWeatherData(data) {
         }
 
         cambiarFooterRelative(); 
+
+    //**AGREGA HTML A CONTENEDOR WEATHER CON VARIABLES
         weatherData.innerHTML = `
             <div class="city-Name">
                 <h1 class="city">${cityName}</h1>
@@ -195,6 +216,7 @@ function displayWeatherData(data) {
             <img id="imagen-clima-estado" src="./img/Imagen estado del Clima/${icon}.svg">
             </div>
 
+    //**ICONO PRINCIPAL DEL CLIMA DETERMINADO POR ICONO QUE RETORNA OPEN WEATHER
             <div class="weather-description container">
                 <img src="https://openweathermap.org/img/wn/${icon}@2x.png" class="clima">
                 <h3 class="descripcion-clima">${weatherDescription}</h3>
@@ -260,17 +282,20 @@ function displayWeatherData(data) {
     }, 2000);
 }
 
+//**CONVIERTE TIMEZONE EN HORA LOCAL
 function getCurrentCityTime(timezone) {
     const now = new Date();
     const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
     const cityTime = new Date(utc + (1000 * timezone)).toLocaleTimeString("es-ES", { hour: '2-digit', minute: '2-digit' });
-    const hour = parseInt(cityTime.split(':')[0]);
+    const hora = parseInt(cityTime.split(':')[0]);
 
-    // Determinar si es de día o de noche
+    //!DETERMINAR SI ES DE DIA, TARDE O DE NOCHE
     let dayNight = '';
-    if (hour >= 6 && hour < 18) {
+    if (hora >= 6 && hora < 13) {
         dayNight = 'día ☀️';
-    } else {
+    } else if (hora >= 13 && hora < 18){
+        dayNight = 'tarde 🌈';
+    } else{
         dayNight = 'noche 🌙';
     }
 
