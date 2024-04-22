@@ -27,7 +27,7 @@
 }
 
 /*!CLIELO LLUVIOSO NOCHE*/
-.rain-sky-night {
+.rainy-sky-night {
     background: linear-gradient(223deg, #2f2f2f, #4f4f4f, #7a7a7a, #424242, #003b65, #414141, #1d0097, #0b2859, #4f5306);
     background-size: 1800% 1800%;
 
@@ -41,9 +41,10 @@
 }
 
 /*!CLIELO LLUVIOSO DIA*/
-.rainy-day-sky {
-    background: linear-gradient(223deg, #6c6c6c, #888888, #634700, #252525, #44470a, #717171, #84790a, #6c4a00);
+.rainy-sky-day {
+    background: linear-gradient(223deg, #6c6c6c, #888888, #222e54, #252525, #13253f, #717171, #2f2c56, #6c4a00);
     background-size: 1600% 1600%;
+
     animation: rainyAnimation 25s ease infinite;
 }
 

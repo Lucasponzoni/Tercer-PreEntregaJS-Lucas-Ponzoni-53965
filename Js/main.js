@@ -116,7 +116,7 @@ function fetchData() {
         const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric&lang=sp`;
 
         //?ELIMINA DATOS DEL CONTENEDOS
-        skyanimation.classList.remove("clean-sky-day", "clean-sky-night", "rain-sky-night", "rain-sky-day");
+        skyanimation.classList.remove("clean-sky-day", "clean-sky-night", "rainy-sky-night", "rainy-sky-day");
         quitarFooterRelative()
         clearWeatherData();
         showSpinner();
@@ -151,7 +151,7 @@ function fetchData() {
             });
     } else {
         quitarFooterRelative()
-        skyanimation.classList.remove("clean-sky-day", "clean-sky-night", "rain-sky-night", "rain-sky-day");
+        skyanimation.classList.remove("clean-sky-day", "clean-sky-night", "rainy-sky-night", "rainy-sky-day");
         weatherData.innerHTML = `<div class="error-city">
         <p><i class="bi bi-question-circle"></i> Por favor ingrese el nombre de una ciudad</p>
         <img id="imagen-clima-estado" src="./img/error.gif">
@@ -188,7 +188,7 @@ function displayWeatherData(data) {
     setTimeout(() => {
 
     //**REMUEVE CLASES PARA ANIMACION DE CONTENEDOR WEATHER
-        skyanimation.classList.remove("clean-sky-day", "clean-sky-night", "rain-sky-night", "rain-sky-day");
+        skyanimation.classList.remove("clean-sky-day", "clean-sky-night", "rainy-sky-night", "rainy-sky-day");
 
     //**AGREGA CLASES PARA ANIMACION DE CONTENEDOR WEATHER DEPENDIENDO DEL ICONO QUE RETORNA OPEN WEATHER
         if (["01d", "02d", "03d"].includes(icon)) {
@@ -196,9 +196,9 @@ function displayWeatherData(data) {
         } else if (["01n", "02n", "03n"].includes(icon)) {
             skyanimation.classList.add("clean-sky-night");
         } else if (["04d", "09d", "10d", "11d", "13d", "50d"].includes(icon)) {
-            skyanimation.classList.add("rain-sky-night");
+            skyanimation.classList.add("rainy-sky-night");
         } else if (["04n", "09n", "10n", "11n", "13n", "50n"].includes(icon)) {
-            skyanimation.classList.add("rain-sky-day");
+            skyanimation.classList.add("rainy-sky-day");
         }
 
         cambiarFooterRelative(); 
@@ -213,7 +213,7 @@ function displayWeatherData(data) {
                 <h4 class="dia-noche">Ahora en ${cityName}, ${countryFullName} es de ${dayNight} y son las ${cityTime}hs</h4>
             </div>
             <div class="clima">
-            <img id="imagen-clima-estado" src="./img/Imagen estado del Clima/${icon}.svg">
+            <img class="main-icon" id="imagen-clima-estado" src="./img/Imagen estado del Clima/${icon}.svg">
             </div>
 
             <div class="weather-description container">
