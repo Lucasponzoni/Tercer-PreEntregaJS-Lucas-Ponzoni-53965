@@ -216,7 +216,6 @@ function displayWeatherData(data) {
             <img id="imagen-clima-estado" src="./img/Imagen estado del Clima/${icon}.svg">
             </div>
 
-    //**ICONO PRINCIPAL DEL CLIMA DETERMINADO POR ICONO QUE RETORNA OPEN WEATHER
             <div class="weather-description container">
                 <img src="https://openweathermap.org/img/wn/${icon}@2x.png" class="clima">
                 <h3 class="descripcion-clima">${weatherDescription}</h3>

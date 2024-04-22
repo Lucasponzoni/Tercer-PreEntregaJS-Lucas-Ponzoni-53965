@@ -41,15 +41,15 @@
 }
 
 /*!CLIELO LLUVIOSO DIA*/
-.rain-sky-day {
-    background: linear-gradient(223deg, #634700, #a37400, #44470a, #717171, #84790a, #6c4a00, #6c6c6c, #888888);
+.rainy-day-sky {
+    background: linear-gradient(223deg, #6c6c6c, #888888, #634700, #252525, #44470a, #717171, #84790a, #6c4a00);
     background-size: 1600% 1600%;
-
-    animation: AnimationName 25s ease infinite;
+    animation: rainyAnimation 25s ease infinite;
 }
 
-@keyframes AnimationName {
-    0%{background-position:96% 0%}
-    50%{background-position:5% 100%}
-    100%{background-position:96% 0%}
+@keyframes rainyAnimation {
+    0% { background-position: 96% 0%; }
+    50% { background-position: 5% 100%; }
+    100% { background-position: 96% 0%; }
 }
+
