@@ -1,4 +1,3 @@
-
 //TODO: DOM - ELEMENTOS DEL HTML
 const apiKey = "cf7ae197cd3b9bb784f6b11cc2a08738";
 const searchButton = document.getElementById("searchButton");
@@ -7,6 +6,23 @@ const weatherData = document.getElementById("weatherData");
 const spinner = document.querySelector(".loader");
 const suggestionContainer = document.getElementById("suggestions");
 const skyanimation = document.querySelector(".card");
+const btnGroup = document.querySelector("#btn-group");
+
+//!ULTIMAS LOCALIDADES BUSCADAS
+const lastSearches = JSON.parse(localStorage.getItem('lastSearches')) || [];
+
+lastSearches.forEach((location, index) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'btn btn-secondary';
+    button.textContent = location;
+    button.addEventListener('click', () => {
+        cityInput.value = location.split(',')[0].trim();
+        fetchData();
+    });
+    btnGroup.appendChild(button);
+
+});
 
 //!BOTON MODO OSCURO
 const modoOscuroButton = document.getElementById('modoOscuroButton');
@@ -108,7 +124,7 @@ cityInput.addEventListener("keypress", (e) => {
     }
 });
 
-//!FUNCION PRINCIPAR LLAMADO A API OPEN WEATHER
+//!FUNCION PRINCIPAL LLAMADO A API OPEN WEATHER
 function fetchData() {
     const cityName = cityInput.value.trim();
 
@@ -127,6 +143,30 @@ function fetchData() {
             .then(response => response.json())
             .then(data => {
                 if (data.cod === 200) {
+                    //!AGREGA LOCALIDADES AL GRUPO DE BOTONES
+                    const searchLocation = `${data.name}, ${data.sys.country}`;
+                    lastSearches.unshift(searchLocation);
+                    
+                    if (lastSearches.length > 5) {
+                        lastSearches.pop();
+                    }
+                    //!LOCAL STORAGE UPDATE
+                    localStorage.setItem('lastSearches', JSON.stringify(lastSearches));
+
+                    //!BOTONES DE ULTIMAS BUSQUEDAS
+                    btnGroup.innerHTML = "";
+                    lastSearches.forEach(location => {
+                        const button = document.createElement('button');
+                        button.type = 'button';
+                        button.className = 'btn btn-secondary';
+                        button.textContent = location;
+                        button.addEventListener('click', () => {
+                            cityInput.value = location.split(',')[0].trim();
+                            fetchData();
+                        });
+                        btnGroup.appendChild(button);
+                    });
+
                     displayWeatherData(data);
                 } else {
                     hideSpinner()

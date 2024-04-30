@@ -437,3 +437,34 @@ header{
 .owner-foot{
     font-weight: 600;
 }
+
+.btn-group {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.btn-group button:first-child {
+    background-color: black;
+    color: white;
+    font-weight: 800;
+    position: relative;
+    transition: 0.6s;
+}
+
+.btn-group button:first-child:hover {
+    background-color: yellow;
+    color: black;
+}
+
+.btn-group button:first-child::before {
+    text-align: center;
+    content: "último";
+    position: absolute;
+    top: -16px;
+    left: -10px;
+    background-color: red;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 10px;
+    font-size: 12px;
+    z-index: 100;
+}
