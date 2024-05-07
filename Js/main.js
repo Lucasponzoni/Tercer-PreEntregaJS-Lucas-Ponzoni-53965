@@ -22,7 +22,7 @@ lastSearches.forEach((location, index) => {
     });
     btnGroup.appendChild(button);
 });
-<<<<<< HEAD
+
 //!BOTON MODO OSCURO
 const boton0 = document.querySelector("#modoOscuroButton");
 
@@ -47,15 +47,6 @@ function darkMode() {
     const isDarkMode = document.body.classList.contains("dark-mode");
     localStorage.setItem('darkMode', isDarkMode);
 }
-
-
-=======
-//! BOTÓN MODO OSCURO
-const modoOscuroButton = document.getElementById('modoOscuroButton');
-modoOscuroButton.addEventListener('click', function() {
-    alert('En construcción para pre-entrega 4');
-});
->>>>>>> ffe1c6b066ade3667fdbb0eb54481f98b9b8bb44
 
 //! BOTÓN SEARCH
 cityInput.addEventListener("input", () => {
@@ -356,7 +347,6 @@ function getCurrentCityTime(timezone) {
     return { cityTime, dayNight };
 }
 
-<<<<<<< HEAD
 //!DARK-MODE LOCAL STORAGE
 window.addEventListener('load', () => {
     const isDarkMode = JSON.parse(localStorage.getItem('darkMode'));
@@ -365,7 +355,7 @@ window.addEventListener('load', () => {
         darkMode();
     }
 });
-=======
+
 //! ACTUALIZA LOS BOTONES DE ÚLTIMAS BÚSQUEDAS
 function updateLastSearchButtons() {
     btnGroup.innerHTML = "";
@@ -381,4 +371,4 @@ function updateLastSearchButtons() {
         btnGroup.appendChild(button);
     });
 }
->>>>>>> ffe1c6b066ade3667fdbb0eb54481f98b9b8bb44
+
