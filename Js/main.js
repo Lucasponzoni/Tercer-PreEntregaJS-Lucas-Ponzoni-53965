@@ -25,10 +25,31 @@ lastSearches.forEach((location, index) => {
 });
 
 //!BOTON MODO OSCURO
-const modoOscuroButton = document.getElementById('modoOscuroButton');
-modoOscuroButton.addEventListener('click', function() {
-    alert('En construcción para pre-entrega 4');
-});
+const boton0 = document.querySelector("#modoOscuroButton");
+
+boton0.addEventListener("click", darkMode);
+
+function darkMode() {
+    document.body.classList.toggle("dark-mode");
+    document.querySelector(".titulo").classList.toggle("dark-mode");
+    document.querySelector(".page-name").classList.toggle("dark-mode");
+    document.querySelector(".foot-text").classList.toggle("dark-mode");
+    document.querySelector(".foot-img").classList.toggle("dark-mode");
+    document.querySelectorAll(".barkButton").forEach(button => {
+        button.classList.toggle("dark-mode");
+    });
+
+    if (document.body.classList.contains("dark-mode")) {
+        boton0.innerHTML = `<i class="bi bi-brightness-high-fill"></i> Modo Claro`;
+    } else {
+        boton0.innerHTML = `<i class="bi bi-moon-stars"></i> Modo Oscuro`;
+    }
+
+    const isDarkMode = document.body.classList.contains("dark-mode");
+    localStorage.setItem('darkMode', isDarkMode);
+}
+
+
 
 //!BOTON SEARCH
 cityInput.addEventListener("input", () => {
@@ -340,3 +361,12 @@ function getCurrentCityTime(timezone) {
 
     return { cityTime, dayNight };
 }
+
+//!DARK-MODE LOCAL STORAGE
+window.addEventListener('load', () => {
+    const isDarkMode = JSON.parse(localStorage.getItem('darkMode'));
+    
+    if (isDarkMode) {
+        darkMode();
+    }
+});

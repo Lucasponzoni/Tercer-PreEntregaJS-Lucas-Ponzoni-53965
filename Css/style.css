@@ -15,6 +15,11 @@ body{
     justify-content: center;
     align-items: center;
 }
+
+body.dark-mode{
+    background-color: #333;
+}
+
 @media (max-width: 600px) {
     body {
         background-color: rgb(201, 201, 201);
@@ -41,6 +46,10 @@ header{
     border: none;
 }
 
+.barkButton.dark-mode{
+    background-color: rgb(0, 128, 255);
+}
+
 .barkButton a{
     text-decoration: none;
     color: #fff;
@@ -48,6 +57,11 @@ header{
 
 .barkButton:hover{
     background-color: rgb(0, 128, 255);
+    border: none;
+}
+
+.barkButton.dark-mode:hover{
+    background-color: red;
     border: none;
 }
 
@@ -60,9 +74,22 @@ header{
     border: solid 1px rgb(0, 128, 255);
 }
 
+.page-name.dark-mode{
+    background-color: black;
+}
+
 .page-name a{
     text-decoration: none;
     color: black;
+}
+
+.page-name a.dark-mode{
+    text-decoration: none;
+    color: white;
+}
+
+.page-name img{
+    width: 60px;
 }
 
 @media (max-width: 600px) {
@@ -425,6 +452,12 @@ header{
     color: #333;
 }
 
+.foot-text.dark-mode p{
+    margin: 0;
+    font-size: small;
+    color: white;
+}
+
 .foot.relative {
     position: relative;
 }
@@ -432,6 +465,11 @@ header{
 .foot-img a img {
     width: 200px;
     filter: brightness(0) invert(0);
+}
+
+.foot-img.dark-mode a img{
+    width: 200px;
+    filter: brightness(0) invert(100);
 }
 
 .owner-foot{
