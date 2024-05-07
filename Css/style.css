@@ -441,7 +441,6 @@ header{
 
 @media (max-width: 600px) {
     .foot {
-        background-color: #fff;
         border-radius: 0;
     }
 }
