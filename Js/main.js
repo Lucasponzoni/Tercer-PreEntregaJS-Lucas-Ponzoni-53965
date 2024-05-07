@@ -8,7 +8,7 @@ const suggestionContainer = document.getElementById("suggestions");
 const skyanimation = document.querySelector(".card");
 const btnGroup = document.querySelector("#btn-group");
 
-//!ULTIMAS LOCALIDADES BUSCADAS
+//! ÚLTIMAS LOCALIDADES BUSCADAS
 const lastSearches = JSON.parse(localStorage.getItem('lastSearches')) || [];
 
 lastSearches.forEach((location, index) => {
@@ -21,9 +21,8 @@ lastSearches.forEach((location, index) => {
         fetchData();
     });
     btnGroup.appendChild(button);
-
 });
-
+<<<<<< HEAD
 //!BOTON MODO OSCURO
 const boton0 = document.querySelector("#modoOscuroButton");
 
@@ -50,8 +49,15 @@ function darkMode() {
 }
 
 
+=======
+//! BOTÓN MODO OSCURO
+const modoOscuroButton = document.getElementById('modoOscuroButton');
+modoOscuroButton.addEventListener('click', function() {
+    alert('En construcción para pre-entrega 4');
+});
+>>>>>>> ffe1c6b066ade3667fdbb0eb54481f98b9b8bb44
 
-//!BOTON SEARCH
+//! BOTÓN SEARCH
 cityInput.addEventListener("input", () => {
     const input = cityInput.value.trim();
     if (input.length >= 3) {
@@ -81,7 +87,7 @@ cityInput.addEventListener("input", () => {
     }
 });
 
-//!REALIZAR BUSQUEDA AL DAR CLICK EN LA SUCURGENCIA
+//! REALIZAR BÚSQUEDA AL DAR CLICK EN LA SUGERENCIA
 suggestionContainer.addEventListener("click", (e) => {
     if (e.target.tagName === "A") {
         e.preventDefault();
@@ -93,7 +99,7 @@ suggestionContainer.addEventListener("click", (e) => {
     }
 });
 
-//!OCULTAR SUGERENCIA AL DAR CLICK FUERA DEL CONTENEDOR
+//! OCULTAR SUGERENCIA AL DAR CLICK FUERA DEL CONTENEDOR
 document.addEventListener("click", (e) => {
     if (!e.target.matches("#cityInput")) {
         suggestionContainer.innerHTML = "";
@@ -101,93 +107,85 @@ document.addEventListener("click", (e) => {
     }
 });
 
-//!FUNCION QUITAR ETIQUETA RELATIVE AL FOOTER
+//! FUNCION QUITAR ETIQUETA RELATIVE AL FOOTER
 function quitarFooterRelative() {
     const footer = document.querySelector('.foot');
     footer.classList.remove('relative');
 }
 
-//!FUNCION AGREGR ETIQUETA RELATIVE AL FOOTER
+//! FUNCION AGREGAR ETIQUETA RELATIVE AL FOOTER
 function cambiarFooterRelative() {
     const footer = document.querySelector('.foot');
     footer.classList.add('relative');
 }
 
-//!FUNCION MOSTRAR SPINNER
+//! FUNCION MOSTRAR SPINNER
 function showSpinner() {
     spinner.style.display = "block";
 }
 
-//!FUNCION OCULTAR SPINNER
+//! FUNCION OCULTAR SPINNER
 function hideSpinner() {
     spinner.style.display = "none";
 }
 
-//!FUNCION ELIMINAR CONTENIDO DEL CONTENEDOR WEATHER
+//! FUNCION ELIMINAR CONTENIDO DEL CONTENEDOR WEATHER
 function clearWeatherData() {
     weatherData.innerHTML = "";
 }
 
-//!FUNCION LIMPIAR IMPUT
+//! FUNCION LIMPIAR INPUT
 function clearInput() {
     cityInput.value = "";
 }
 
-//!LLAMAR A LA API AL DAR CLICK
+//! LLAMAR A LA API AL DAR CLICK
 searchButton.addEventListener("click", () => {
     fetchData();
 });
 
-//!LLAMAR A LA API AL DAR ENTER
+//! LLAMAR A LA API AL DAR ENTER
 cityInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
         fetchData();
     }
 });
 
-//!FUNCION PRINCIPAL LLAMADO A API OPEN WEATHER
+//! FUNCION PRINCIPAL PARA LLAMAR A LA API DE OPENWEATHER
 function fetchData() {
     const cityName = cityInput.value.trim();
 
     if (cityName !== "") {
         const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric&lang=sp`;
 
-        //?ELIMINA DATOS DEL CONTENEDOS
+        //? ELIMINA DATOS DEL CONTENEDOR
         skyanimation.classList.remove("clean-sky-day", "clean-sky-night", "rainy-sky-night", "rainy-sky-day");
         quitarFooterRelative()
         clearWeatherData();
         showSpinner();
         clearInput();
 
-        //?PETICION A API DE OPEN WEATHER
+        //? PETICION A API DE OPENWEATHER
         fetch(apiUrl)
             .then(response => response.json())
             .then(data => {
                 if (data.cod === 200) {
-                    //!AGREGA LOCALIDADES AL GRUPO DE BOTONES
+                    //! AGREGA LOCALIDADES AL GRUPO DE BOTONES
                     const searchLocation = `${data.name}, ${data.sys.country}`;
+                    const index = lastSearches.findIndex(location => {
+                        return location.toLowerCase() === searchLocation.toLowerCase();
+                    });
+                    if (index !== -1) {
+                        lastSearches.splice(index, 1);
+                    }
                     lastSearches.unshift(searchLocation);
-                    
                     if (lastSearches.length > 5) {
                         lastSearches.pop();
                     }
-                    //!LOCAL STORAGE UPDATE
+                    //! LOCAL STORAGE UPDATE
                     localStorage.setItem('lastSearches', JSON.stringify(lastSearches));
-
-                    //!BOTONES DE ULTIMAS BUSQUEDAS
-                    btnGroup.innerHTML = "";
-                    lastSearches.forEach(location => {
-                        const button = document.createElement('button');
-                        button.type = 'button';
-                        button.className = 'btn btn-secondary';
-                        button.textContent = location;
-                        button.addEventListener('click', () => {
-                            cityInput.value = location.split(',')[0].trim();
-                            fetchData();
-                        });
-                        btnGroup.appendChild(button);
-                    });
-
+                    //! BOTONES DE ÚLTIMAS BÚSQUEDAS
+                    updateLastSearchButtons();
                     displayWeatherData(data);
                 } else {
                     hideSpinner()
@@ -221,7 +219,7 @@ function fetchData() {
     }
 }
 
-//!FUNCION MOSTRAR DATOS OBTENIDOS
+//! FUNCIÓN PARA MOSTRAR DATOS OBTENIDOS
 function displayWeatherData(data) {
     const weatherMain = data.weather[0].main;
     const icon = data.weather[0].icon;
@@ -237,21 +235,17 @@ function displayWeatherData(data) {
     const sunrise = new Date(data.sys.sunrise * 1000).toLocaleTimeString("es-ES", { hour: '2-digit', minute: '2-digit' });
     const sunset = new Date(data.sys.sunset * 1000).toLocaleTimeString("es-ES", { hour: '2-digit', minute: '2-digit' });
     const country = data.sys.country;
-    //**CONVIERTE CODIGO DE PAIS A NOMBRE COMPLETO (Ej AR a ARGENTINA)
+    //! CONVIERTE CÓDIGO DE PAÍS A NOMBRE COMPLETO
     const countryFullName = country_names[country] || "País Desconocido";
-
-    //**OBTENER TIME ZONE
+    //! OBTIENE TIME ZONE
     const { cityTime, dayNight } = getCurrentCityTime(data.timezone);
 
     suggestionContainer.style.display = "none";
     
-    //**RETRASA EL MOSTRAR DATOS 2 SEGUNDOS PARA FIRZAR EL SPINNER
     setTimeout(() => {
-
-    //**REMUEVE CLASES PARA ANIMACION DE CONTENEDOR WEATHER
+        //! REMUEVE CLASES PARA ANIMACIÓN DE CONTENEDOR WEATHER
         skyanimation.classList.remove("clean-sky-day", "clean-sky-night", "rainy-sky-night", "rainy-sky-day");
-
-    //**AGREGA CLASES PARA ANIMACION DE CONTENEDOR WEATHER DEPENDIENDO DEL ICONO QUE RETORNA OPEN WEATHER
+        //! AGREGA CLASES PARA ANIMACIÓN DE CONTENEDOR WEATHER SEGÚN EL ICONO
         if (["01d", "02d", "03d"].includes(icon)) {
             skyanimation.classList.add("clean-sky-day");
         } else if (["01n", "02n", "03n"].includes(icon)) {
@@ -261,10 +255,8 @@ function displayWeatherData(data) {
         } else if (["04n", "09n", "10n", "11n", "13n", "50n"].includes(icon)) {
             skyanimation.classList.add("rainy-sky-day");
         }
-
         cambiarFooterRelative(); 
-
-    //**AGREGA HTML A CONTENEDOR WEATHER CON VARIABLES
+        //! AGREGA HTML AL CONTENEDOR WEATHER CON VARIABLES
         weatherData.innerHTML = `
             <div class="city-Name">
                 <h1 class="city">${cityName}</h1>
@@ -342,14 +334,16 @@ function displayWeatherData(data) {
     }, 2000);
 }
 
-//**CONVIERTE TIMEZONE EN HORA LOCAL
+//! CONVIERTE TIMEZONE EN HORA LOCAL
 function getCurrentCityTime(timezone) {
     const now = new Date();
     const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
     const cityTime = new Date(utc + (1000 * timezone)).toLocaleTimeString("es-ES", { hour: '2-digit', minute: '2-digit' });
-    const hora = parseInt(cityTime.split(':')[0]);
+    const hora = parseInt(cityTime.split(':')[
 
-    //!DETERMINAR SI ES DE DIA, TARDE O DE NOCHE
+0]);
+
+    //! DETERMINA SI ES DE DÍA, TARDE O DE NOCHE
     let dayNight = '';
     if (hora >= 6 && hora < 13) {
         dayNight = 'día ☀️';
@@ -362,6 +356,7 @@ function getCurrentCityTime(timezone) {
     return { cityTime, dayNight };
 }
 
+<<<<<<< HEAD
 //!DARK-MODE LOCAL STORAGE
 window.addEventListener('load', () => {
     const isDarkMode = JSON.parse(localStorage.getItem('darkMode'));
@@ -370,3 +365,20 @@ window.addEventListener('load', () => {
         darkMode();
     }
 });
+=======
+//! ACTUALIZA LOS BOTONES DE ÚLTIMAS BÚSQUEDAS
+function updateLastSearchButtons() {
+    btnGroup.innerHTML = "";
+    lastSearches.forEach(location => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'btn btn-secondary';
+        button.textContent = location;
+        button.addEventListener('click', () => {
+            cityInput.value = location.split(',')[0].trim();
+            fetchData();
+        });
+        btnGroup.appendChild(button);
+    });
+}
+>>>>>>> ffe1c6b066ade3667fdbb0eb54481f98b9b8bb44
